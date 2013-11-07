@@ -72,19 +72,38 @@ var contactsModel = (function () {
     var contactsDataSource = new kendo.data.DataSource({
         transport: {
             read: function(options) {
-                /*// find all contacts
-                var options = new ContactFindOptions();
-                options.filter = "";
-                options.multiple = true;
-                
-                navigator.contacts.find(["displayName"], function onSuccess(contacts) {
-                    // pass contacts from contacts array to options.success (might need cloning beforehand)*/
+                if (navigator.contacts.find) {
+                    // find all contacts
+                    var cfOptions = new ContactFindOptions();
+                    cfOptions.filter = "";
+                    cfOptions.multiple = true;
+                    
+                    navigator.contacts.find(["displayName"], function onSuccess(contacts) {
+                        // pass contacts from contacts array to options.success (might need cloning beforehand)
+                        options.success(contacts);
+                    }, function onError(contactError) {
+                        alert('Error fetching contacts');
+                    }, cfOptions);
+                } else {
+                    // mock data for simulator
                     options.success([
-                         { DisplayName: "John Doe", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" }
+                        { displayName: "Ferris Hamilton", PhoneNumbers: ["(05718) 7340682"], Organizations: [ "Netus Et Malesuada Limited" ] },
+                        { displayName: "Nyssa Padilla", PhoneNumbers: ["(05873) 5541218"], Organizations: [ "Eros Non Foundation" ] },
+                        { displayName: "Keaton Rogers", PhoneNumbers: ["(039) 94582937"], Organizations: [ "Arcu Eu LLC" ] },
+                        { displayName: "Hilary Fulton", PhoneNumbers: ["(039147) 186161"], Organizations: [ "Aliquet Foundation" ] },
+                        { displayName: "Lyle Bullock", PhoneNumbers: ["(038943) 047972"], Organizations: [ "Nulla Aliquet Proin Limited" ] },
+                        { displayName: "Prescott Norris", PhoneNumbers: ["(074) 16872420"], Organizations: [ "Dictum Institute" ] },
+                        { displayName: "Keefe Monroe", PhoneNumbers: ["(035919) 691892"], Organizations: [ "Eu Accumsan Sed Institute" ] },
+                        { displayName: "Francesca Odom", PhoneNumbers: ["(033037) 772308"], Organizations: [ "Vel Vulputate Associates" ] },
+                        { displayName: "Raya Lee", PhoneNumbers: ["(0174) 32845613"], Organizations: [ "Mollis Integer Tincidunt PC" ] },
+                        { displayName: "Merritt Joyce", PhoneNumbers: ["(039960) 069465"], Organizations: [ "Facilisis Magna LLP" ] },
+                        { displayName: "Candice Marsh", PhoneNumbers: ["(006) 88780519"], Organizations: [ "Malesuada Inc." ] },
+                        { displayName: "Lois Pierce", PhoneNumbers: ["(09262) 3726396"], Organizations: [ "Etiam Ligula PC" ] },
+                        { displayName: "Florence Stephens", PhoneNumbers: ["(034858) 065644"], Organizations: [ "Eros Nec PC" ] },
+                        { displayName: "Hannah Nash", PhoneNumbers: ["(0966) 87062978"], Organizations: [ "Cras Inc." ] },
+                        { displayName: "Britanni Blankenship", PhoneNumbers: ["(031597) 653901"], Organizations: [ "Nonummy Ac Feugiat LLC" ] }
                     ]);
-                /*}, function onError(contactError) {
-                    alert('onError!');
-                }, options);*/
+                }
             }
         },
         schema: {
@@ -97,7 +116,7 @@ var contactsModel = (function () {
                 $('#no-contacts-span').show();
             }
         },
-        sort: { field: 'DisplayName', dir: 'desc' }
+        sort: { field: 'displayName', dir: 'asc' }
     });
     
     return {

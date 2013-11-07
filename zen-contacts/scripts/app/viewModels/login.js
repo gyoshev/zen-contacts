@@ -1,7 +1,7 @@
 var applicationSettings = {
     emptyGuid: '00000000-0000-0000-0000-000000000000',
     apiKey: '2Mlqvek2P0CHdsEE',
-    scheme: 'http'
+    scheme: 'https'
 };
 
 // initialize Everlive SDK
@@ -56,7 +56,7 @@ var usersModel = (function () {
         return el.Users.currentUser()
             .then(function (data) {
                 var currentUserData = data.result;
-                currentUserData.PictureUrl = AppHelper.resolveProfilePictureUrl(currentUserData.Picture);
+                //currentUserData.PictureUrl = AppHelper.resolveProfilePictureUrl(currentUserData.Picture);
                 currentUser.set('data', currentUserData);
                 return el.Users.get();
             })
