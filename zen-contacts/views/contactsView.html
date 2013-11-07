@@ -1,0 +1,20 @@
+<div data-role="view" id="view-all-contacts" data-layout="default" class="contacts-view" data-model="app.viewModels.contacts">
+    <header data-role="header">
+        <div data-role="navbar">
+            Phone contacts
+            <a class="nav-button" data-align="left" data-role="backbutton" data-click="app.viewModels.contacts.logout">Log out</a>
+            <a class="nav-button" data-align="right" data-role="button" data-icon="plus"></a>
+        </div>
+    </header>
+
+    <ul id="contacts-listview" data-role="listview" data-template="contactTemplate"
+        data-bind="source: contacts"></ul>
+    <p id="no-contacts-span" hidden="hidden" class="no-items-msg">
+        <b>You appear to have no contacts.</b><br /><br />Tap on the plus icon to get all from the server.
+    </p>
+</div>
+
+<!-- Activities ListView Template -->
+<script type="text/x-kendo-template" id="contactTemplate">
+        ${DisplayName}
+</script>
