@@ -60,23 +60,25 @@ var contactsModel = (function () {
         }
     };
     
-    /*// Datasource that syncs with everlive
-    var ELcontactsDataSource = new kendo.data.DataSource({
+    // Datasource that syncs with everlive
+    var elContactsDataSource = new kendo.data.DataSource({
         type: 'everlive',
         schema: {
             model: contactModel
         },
         transport: {
             // required by Everlive
-            typeName: 'Contacts'
+            typeName: 'Contact'
         }
-    });*/
+    });
     
     // Datasource that syncs with phone
     var contactsDataSource = new kendo.data.DataSource({
         transport: {
             read: function(options) {
-                if (navigator.contacts.find) {
+                // check if the device uuid is the same as the simulator's
+                // if so - use mock data
+                if (navigator.contacts.find && device.uuid != 'e0908060g38bde8e6740011221af335301010333') {
                     // find all contacts
                     var cfOptions = new ContactFindOptions();
                     cfOptions.filter = "";
@@ -125,7 +127,8 @@ var contactsModel = (function () {
     });
     
     return {
-        contacts: contactsDataSource
+        contacts: contactsDataSource,
+        serverContacts: elContactsDataSource
     };
 }());
 
@@ -134,15 +137,47 @@ var contactsViewModel = (function () {
     var navigateHome = function () {
         mobileApp.navigate('#welcome');
     };
+    
     var logout = function () {
         AppHelper.logout()
-        .then(navigateHome, function (err) {
-            showError(err.message);
-            navigateHome();
+            .then(navigateHome, function (err) {
+                showError(err.message);
+                navigateHome();
+            });
+    };
+    
+    var phoneContacts = contactsModel.contacts;
+    
+    var sync = function() {
+        var serverContacts = contactsModel.serverContacts;
+        
+        // TODO: show "sync in progress" message during the fetch
+        serverContacts.fetch(function() {
+            var serverData = this.data();
+            var phoneData = phoneContacts.data();
+            
+            if (!serverData.length) {
+                // server records are empty
+                // TODO: push all contacts
+                this.add(phoneData[0].toJSON()); // clones the first contact and pushes it to the server
+                this.sync();
+            } else if (!phoneData.length) {
+                // server has contacts, but phone contacts are empty
+            } else {
+                // both server and phone have entries, proceed to merge
+                alert("on phone: " + phoneData.length + "; on server: " + serverData.length);
+            }
         });
     };
+    
+    var contactSelected = function (e) {
+        mobileApp.navigate('views/contactDetailsView.html?uid=' + e.data.uid);
+    };
+    
     return {
-        contacts: contactsModel.contacts,
+        contacts: phoneContacts,
+        contactSelected: contactSelected,
+        sync: sync,
         logout: logout
     };
 }());
