@@ -52,8 +52,6 @@ var AppHelper = {
     }
 };
 
-var mobileApp = new kendo.mobile.Application(document.body, { transition: 'slide', statusBarStyle: "black", layout: 'mobile-tabstrip', skin: 'flat' });
-
 var usersModel = (function () {
     var currentUser = kendo.observable({ data: null });
     var usersData;
