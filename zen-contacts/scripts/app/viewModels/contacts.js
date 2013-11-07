@@ -56,7 +56,7 @@ var contactsModel = (function () {
         }
     };
     
-    /*// Datasource that syncs with everlive
+    // Datasource that syncs with everlive
     var ELcontactsDataSource = new kendo.data.DataSource({
         type: 'everlive',
         schema: {
@@ -64,9 +64,10 @@ var contactsModel = (function () {
         },
         transport: {
             // required by Everlive
-            typeName: 'Contacts'
-        }
-    });*/
+            typeName: 'Contact'
+        },
+        sort: { field: 'DisplayName', dir: 'desc' }
+    });
     
     // Datasource that syncs with phone
     var contactsDataSource = new kendo.data.DataSource({
@@ -101,7 +102,8 @@ var contactsModel = (function () {
     });
     
     return {
-        contacts: contactsDataSource
+        contacts: contactsDataSource,
+        remoteContacts: ELcontactsDataSource
     };
 }());
 
@@ -121,9 +123,16 @@ var contactsViewModel = (function () {
             navigateHome();
         });
     };
+    var saveContact = function(contact) {
+        // TODO: Add validation
+        contactsModel.remoteContacts.add(contact);
+        // update the contacts with the new collection
+        contactsModel.remoteContacts.sync();
+    };
     return {
         contacts: contactsModel.contacts,
         activitySelected: contactSelected,
+        saveContact: saveContact,
         logout: logout
     };
 }());
