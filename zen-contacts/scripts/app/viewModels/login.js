@@ -92,7 +92,8 @@ var loginViewModel = (function () {
                 mobileApp.navigate('views/contactsView.html');
             })
             .then(null, function (err) {
-                  showError(err.message);
+                mobileApp.hideLoading();
+                showError(err.message);
             });
     };
     var loginWithFacebook = function() {
