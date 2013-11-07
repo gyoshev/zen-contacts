@@ -129,13 +129,14 @@
 {
     background-position: 0 -4.3em;    
 }
-.btn-login-fb{
+.km-button.btn-login-fb
+{
+    min-width: 11em;
+    background-color: #306DB0 !important;
     
-    background-color:#165396 !important;
 }
 .sngl-btn-wrp
-{
-    margin: 2em 1em;   
+{ 
     text-align: center;
 }
 /*App Header*/
@@ -353,24 +354,7 @@ textarea
     text-shadow: 1px 2px 3px #000;    
     color: #fff;
 }
-.welcome-scrn h1 b::before
-{
-    display: block;
-    content: " ";
-    width: 1.1em;
-    height: 1em;
-    
-    position: absolute;
-    top: -.8em;
-    right: .3em;
-    
-    background-image: url(images/sprite.png);
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    background-size: cover;
-    background-color: transparent;
-    
-}
+
 .welcome-scrn .group-wrp
 {
     margin: 1.5em 2em 0;
@@ -495,135 +479,25 @@ textarea
     display: none;
 }
 
-/* Tablets*/
-.km-tablet .km-header
+.form-row
 {
-    font-size: 1.2em;
+    margin: .7em 2em 0;
 }
-.km-tablet .km-button.btn-big
+
+.form-row input
 {
-    min-width: 10em;
-    font-size: 2.5em;   
-}
-.km-tablet .welcome-scrn .group-wrp
-{
-    padding-top: 2.5em;
-    padding-bottom: 2.5em;
-}
-.km-tablet .form-view .km-listview label
-{
-    padding: 1rem 1.5rem;
-    font-size: 1.5rem;
+    width: 100%;
     
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    
+    font-size: 1.2em;
+    padding: .5em 1em;
+    border: 1px solid #ccc;
+    background-color: #fff;
 }
-.km-tablet .km-ios .km-list input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]):not(.k-input):not(.k-button), .km-tablet .km-ios .km-list select:not([multiple]), .km-tablet .km-ios .km-list .k-dropdown-wrap,
-.km-tablet.km-root input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]):not(.k-input):not(.k-button), .km-tablet.km-root select:not([multiple]), .km-tablet.km-root .k-dropdown,
-.km-tablet textarea
-{
-    font-size: 1.5rem;    
-}
-.km-tablet .km-listinset
-{
-    margin: 2em;   
-}
-.km-tablet .main-menu-view .km-list > li
-{
-    font-size: 1.5rem;   
-}
-.km-tablet .profile-view h2, .km-tablet .activities-view h3
-{
-    margin-left: 2rem;
-    margin-right: 2rem;
-    margin-bottom: -1rem;
-    font-size: 1.5rem;
-}
-.km-tablet .km-ios .km-list.profile-about-txt > li, .km-tablet .km-android .km-list.profile-about-txt > li
-{
-    padding: .5rem 1rem;
-    font-size: 1.4rem;
-}
-.km-tablet .no-items-msg
-{
-    margin: 2.5rem !important;
-    font-size: 1.5rem;
-}
-.km-tablet .no-items-msg b
-{
-    font-size: 2rem;
-}
-.km-tablet .user-info h2 
-{
-    font-size: 1.7rem;
-}
-.km-tablet .user-info time
-{
-    font-size: .95rem;    
-}
-.km-tablet .user-share
-{
-    padding: 2rem;
-    font-size: 1.4rem;
-}
-.km-tablet .share-view textarea
-{
-    padding: 0;
-}
-.km-tablet .social-info a
-{
-    font-size: 1.1rem;
-}
-.km-tablet .activities-view .km-list, .km-tablet .share-form-wrp, .km-tablet .user-status-wrp
-{
-    margin: 2rem;   
-} 
-/* Android*/
-.km-tablet .km-android .activities-view .user-share-txt
-{   
-    font-size: 1.4rem;
-}
-.km-tablet .km-android .welcome-scrn h1
-{
-    font-size: 3em;    
-} 
-.km-tablet  #friendsApp.km-android .km-navbar .km-button
-{
-    height: 1.4em;
-}
-/* iPad */
-.km-tablet #friendsApp.km-ios .km-view-title
-{
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    text-shadow: none;
-    color: #fff;
-}
-.km-tablet .km-ios .km-content
-{
-    background-color: transparent;   
-}
-.km-tablet .km-ios :not(.km-tabstrip):not(.km-buttongroup) > .km-button
-{
-    background-color: #ff6c00;
-}
-.km-tablet .km-ios :not(.km-tabstrip):not(.km-buttongroup) > .km-button.btn-signup
-{
-    background-color: #272727;
-}
-.km-tablet .km-ios :not(.km-tabstrip):not(.km-buttongroup) > .km-button.km-back 
-{
-background-color: #A36A57;
-}
-.km-tablet .km-ios .welcome-scrn h1
-{
-    font-size: 3.5em;    
-}
-.km-tablet .km-ios .profile-avatar-name h1
-{
-    margin-top: 2rem;
-    font-size: 1.7em;    
-    width: auto;
-}
-.km-tablet .km-ios .profile-view .km-list.def-list .lbl, .km-tablet .km-ios .profile-view .km-list.def-list .val
-{
-    font-size: 1.4em;
-} 

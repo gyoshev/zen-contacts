@@ -20,26 +20,28 @@
         </section>
         <!--WELCOME VIEW -->
         <div data-role="view" id="welcome" data-layout="default" class="welcome-scrn form-view" data-model="app.viewModels.login">
-            <h1><b>Everlive</b> sample application</h1>
+            <h1><b>Zen<br>Contacts</b></h1>
             <form id="login-form">
-                <ul data-role="listview" data-style="inset">
-                    <li><label for="loginUsername">Username</label> <input type="text" id="loginUsername" required validationMessage="Username is required!" /></li>
-                    <li><label for="loginPassword">Password</label> <input type="password" id="loginPassword" required validationMessage="Password is required!" /></li>
-                </ul>
+                <div class="form-row">
+                    <input type="text" id="loginUsername" placeholder="Username" required validationMessage="Username is required!" />
+                </div>
+                <div class="form-row">
+                    <input type="password" id="loginPassword" placeholder="Password" required validationMessage="Password is required!" />
+                </div>
             </form>
             <ol class="group-wrp">
                 <li>
                     <span data-role="touch" data-bind="events: { tap: login }" style="display: inline-block">
                         <a data-role="button" class="btn-login btn-big">Login</a>
                     </span>
-                    <span data-role="touch" data-bind="events: { tap: loginWithFacebook }" style="display: inline-block">
-                        <a data-role="button" class="btn-login-fb btn-big">Login</a>
+                    <span style="display: inline-block">
+                        <a data-role="button" href="views/signupView.html" class="btn-signup btn-big">Sign up</a>
                     </span>
                 </li>
-                <li class="b-top"><a data-role="button" href="views/signupView.html" class="btn-signup btn-big">Sign up</a> </li>
+                <li class="b-top" data-role="touch" data-bind="events: { tap: loginWithFacebook }">
+                    <a data-role="button" class="btn-login-fb btn-big">Login via Facebook</a>
+                </li>
             </ol>
-
-            <div data-role="footer"><p>Powered by Icenium Everlive.</p></div>
         </div>
     </body>
 </html>
