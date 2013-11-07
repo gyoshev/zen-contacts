@@ -132,7 +132,8 @@
 .km-button.btn-login-fb
 {
     min-width: 11em;
-    background: #306DB0 !important;
+    background-color: #306DB0 !important;
+    
 }
 .sngl-btn-wrp
 { 
@@ -476,4 +477,27 @@ textarea
 #friendsApp.km-ios .km-detail
 {
     display: none;
+}
+
+.form-row
+{
+    margin: .7em 2em 0;
+}
+
+.form-row input
+{
+    width: 100%;
+    
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    
+    font-size: 1.2em;
+    padding: .5em 1em;
+    border: 1px solid #ccc;
+    background-color: #fff;
 }
