@@ -116,7 +116,8 @@ var contactsModel = (function () {
                 $('#no-contacts-span').show();
             }
         },
-        sort: { field: 'displayName', dir: 'asc' }
+        sort: { field: 'displayName', dir: 'asc' },
+        filter: { field: 'displayName', operator: 'neq', value: '' }
     });
     
     return {

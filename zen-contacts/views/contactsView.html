@@ -7,14 +7,14 @@
         </div>
     </header>
 
-    <ul id="contacts-listview" data-role="listview" data-template="contactTemplate"
-        data-bind="source: contacts"></ul>
+    <ul id="contacts-listview" data-role="listview" data-template="contactTemplate" data-bind="source: contacts"></ul>
+    
     <p id="no-contacts-span" hidden="hidden" class="no-items-msg">
-        <b>You appear to have no contacts.</b><br /><br />Tap on the plus icon to get all from the server.
+        <b>You appear to have no contacts.</b><br /><br />Tap on the sync icon to get them from the cloud.
     </p>
 </div>
 
 <!-- Activities ListView Template -->
 <script type="text/x-kendo-template" id="contactTemplate">
-        ${displayName}
+    ${displayName}
 </script>
