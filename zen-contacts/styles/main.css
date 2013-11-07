@@ -501,3 +501,9 @@ textarea
     border: 1px solid #ccc;
     background-color: #fff;
 }
+
+.km-sync:after,
+.km-sync:before
+{
+    content: "\e0f6";
+}

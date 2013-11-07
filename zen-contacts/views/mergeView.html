@@ -1,0 +1,13 @@
+<div data-role="view" id="view-merge-contact" data-layout="default" class="merge-view" data-model="app.viewModels.merge">
+    <header data-role="header">
+        <div data-role="navbar">
+            Merge contact
+        </div>
+    </header>
+    
+    <p>The local contact differs from the server.<br>What do you want to do?</p>
+    
+    <a class="action-button" data-align="center" data-role="button" data-click="app.viewModels.useLocal">Local data is correct</a>
+    <a class="action-button" data-align="center" data-role="button" data-click="app.viewModels.useRemote">Server data is correct</a>
+    <a class="action-button" data-align="center" data-role="button" data-click="app.viewModels.useLocalAndRemote">Keep both entries</a>
+</div>
