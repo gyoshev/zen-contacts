@@ -2,8 +2,8 @@
     <header data-role="header">
         <div data-role="navbar">
             Phone contacts
-            <a class="nav-button" data-align="left" data-role="backbutton" data-click="app.viewModels.contacts.logout">Log out</a>
-            <a class="nav-button" data-align="right" data-role="button" data-icon="sync"></a>
+            <a class="nav-button" data-align="left" data-role="backbutton" data-click="app.viewModels.contacts.logout">Logout</a>
+            <a class="nav-button" data-align="right" data-role="button" data-icon="sync" data-click="app.viewModels.contacts.sync"></a>
         </div>
     </header>
 
@@ -17,6 +17,6 @@
 <!-- Activities ListView Template -->
 <script type="text/x-kendo-template" id="contactTemplate">
     <div data-role="touch" data-bind="events: { tap: contactSelected }">
-        ${DisplayName}
+        ${displayName}
     </div>
 </script>
