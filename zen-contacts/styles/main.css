@@ -1,3 +1,13 @@
+body.ios-offset {
+    margin-top: 20px;
+}
+
+.ios-offset .km-view {
+    height: -webkit-calc(100% - 20px);
+    height: -moz-calc(100% - 20px);
+    height: calc(100% - 20px);
+}
+
 /* Buttons */
 .km-button.btn-big
 {
