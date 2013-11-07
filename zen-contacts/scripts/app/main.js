@@ -134,7 +134,7 @@ var app = (function () {
                 return usersModel.load();
             })
             .then(function () {
-                mobileApp.navigate('views/activitiesView.html');
+                mobileApp.navigate('views/contactsView.html');
             })
             .then(null,
                   function (err) {
@@ -211,29 +211,41 @@ var app = (function () {
         };
     }());
 
-    var activitiesModel = (function () {
-        var activityModel = {
+    var contactsModel = (function () {
+        var contactModel = {
             id: 'Id',
             fields: {
-                Text: {
-                    field: 'Text',
+                DisplayName: {
+                    field: 'DisplayName',
                     defaultValue: ''
                 },
                 CreatedAt: {
                     field: 'CreatedAt',
                     defaultValue: new Date()
                 },
-                Picture: {
-                    fields: 'Picture',
+                ModifiedAt: {
+                    field: 'ModifiedAt',
+                    defaultValue: new Date()
+                },
+                ContactId: {
+                    fields: 'ContactId',
                     defaultValue: ''
                 },
-                UserId: {
-                    field: 'UserId',
+                NickName: {
+                    field: 'NickName',
                     defaultValue: ''
                 },
-                Likes: {
-                    field: 'Likes',
+                PhoneNumbers: {
+                    field: 'PhoneNumbers',
                     defaultValue: []
+                },
+                Organizations: {
+                    field: 'Organizations',
+                    defaultValue: []
+                },
+                Name: {
+                    field: 'Name',
+                    defaultValue: ''
                 }
             },
             CreatedAtFormatted: function () {
@@ -256,33 +268,60 @@ var app = (function () {
                 };
             }
         };
-        var activitiesDataSource = new kendo.data.DataSource({
+        var ELcontactsDataSource = new kendo.data.DataSource({
             type: 'everlive',
             schema: {
-                model: activityModel
+                model: contactModel
             },
             transport: {
                 // required by Everlive
-                typeName: 'Activities'
+                typeName: 'Contacts'
+            }
+        });
+        
+        var contactsDataSource = new kendo.data.DataSource({
+            transport: {
+                read: function(options) {
+                    options.success([
+                        { DisplayName: "John Doe", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Vassil Terziev", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Georgi Atanasov", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Konstantina Gocheva", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Jane Doe", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Simeon Nenov", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Gavril Gavrilov", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Vasil Dininski", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Alex Gyoshev", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Jane Doe", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Simeon Nenov", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Gavril Gavrilov", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Vasil Dininski", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
+                        { DisplayName: "Alex Gyoshev", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" }
+                    ]);
+                }
+            },
+            schema: {
+                model: contactModel
             },
             change: function (e) {
                 if (e.items && e.items.length > 0) {
-                    $('#no-activities-span').hide();
-                }
-                else {
-                    $('#no-activities-span').show();
+                    $('#no-contacts-span').hide();
+                } else {
+                    $('#no-contacts-span').show();
                 }
             },
-            sort: { field: 'CreatedAt', dir: 'desc' }
+            sort: { field: 'DisplayName', dir: 'desc' }
         });
+        
         return {
-            activities: activitiesDataSource
+            contacts: contactsDataSource
         };
     }());
 
-    // activities view model
-    var activitiesViewModel = (function () {
-        var activitySelected = function (e) {
+    // contacts view model
+    var contactsViewModel = (function () {
+        var contactSelected = function (e) {
+            // TODO: use this when we allow contact editing on the phone
             mobileApp.navigate('views/activityView.html?uid=' + e.data.uid);
         };
         var navigateHome = function () {
@@ -296,14 +335,15 @@ var app = (function () {
             });
         };
         return {
-            activities: activitiesModel.activities,
-            activitySelected: activitySelected,
+            contacts: contactsModel.contacts,
+            activitySelected: contactSelected,
             logout: logout
         };
     }());
 
+    // TODO: use these when we allow contact editing on the phone
     // activity details view model
-    var activityViewModel = (function () {
+    /*var activityViewModel = (function () {
         return {
             show: function (e) {
                 var activity = activitiesModel.activities.getByUid(e.view.params.uid);
@@ -342,15 +382,13 @@ var app = (function () {
             me: usersModel.currentUser,
             saveActivity: saveActivity
         };
-    }());
+    }());*/
 
     return {
         viewModels: {
             login: loginViewModel,
             signup: singupViewModel,
-            activities: activitiesViewModel,
-            activity: activityViewModel,
-            addActivity: addActivityViewModel
+            contacts: contactsViewModel
         }
     };
 }());
