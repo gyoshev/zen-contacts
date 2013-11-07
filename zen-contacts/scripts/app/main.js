@@ -27,14 +27,18 @@ var app = (function () {
             }
         }, 'Exit', 'Ok,Cancel');
     };
+    
     var onDeviceReady = function() {
         //Handle document events
         document.addEventListener("backbutton", onBackKeyDown, false);
         
-        var contacts = navigator.contacts;
-        var myContact = contacts.create({"displayName": "Test User"});
-        alert(myContact);
-        // myContact.save();
+        var localContactsPulled = function(){
+            for(var i = 0; i < localContacts.length; i++){
+                alert("key: " + localContacts[i].id + " has value " + localContacts[i].displayName);
+            }
+        }
+        
+        pullAllLocalContacts(localContactsPulled);
     };
 
     document.addEventListener("deviceready", onDeviceReady, false);
