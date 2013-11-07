@@ -30,6 +30,12 @@ var app = (function () {
     var onDeviceReady = function() {
         //Handle document events
         document.addEventListener("backbutton", onBackKeyDown, false);
+        
+        var onLocalContactsPulled = function(){
+            sync(localContacts, remoteContacts);
+        }
+        
+        pullAllLocalContacts(onLocalContactsPulled);
     };
 
     document.addEventListener("deviceready", onDeviceReady, false);
