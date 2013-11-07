@@ -107,10 +107,6 @@ var contactsModel = (function () {
 
 // contacts view model
 var contactsViewModel = (function () {
-    var contactSelected = function (e) {
-        // TODO: use this when we allow contact editing on the phone
-        mobileApp.navigate('views/activityView.html?uid=' + e.data.uid);
-    };
     var navigateHome = function () {
         mobileApp.navigate('#welcome');
     };
@@ -123,7 +119,6 @@ var contactsViewModel = (function () {
     };
     return {
         contacts: contactsModel.contacts,
-        activitySelected: contactSelected,
         logout: logout
     };
 }());
