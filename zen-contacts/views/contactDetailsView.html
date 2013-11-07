@@ -1,0 +1,39 @@
+<div data-role="view"
+    id="single-activity"
+    data-layout="default"
+    class="activities-view"
+    data-show="app.viewModels.contactDetails.show">
+    <header data-role="header">
+        <div data-role="navbar">
+            View contact
+            <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
+            <a class="nav-button" data-align="right" data-role="backbutton">Edit</a>
+        </div>
+    </header>
+
+    <div id="status-container" class="user-status-wrp" data-style="inset">
+        <div class="user-info">
+            <div class="main-info-container" style='min-height: 150px;'>
+                <!--TODO: remove placeholder-->
+                <div style='width: 100px; height: 150px; float: left; border: 1px solid grey; margin-right: 20px;'></div>
+                <!-- end TODO-->
+                <h2 id="contactName" data-bind='text: Name'></h2>
+            </div>
+            <h4>Phone numbers: </h4>
+            <div data-role="listView"
+                data-bind="source: PhoneNumbers"
+                data-template="primitiveTemplate">
+            </div>
+            
+            <h4>Organizations: </h4>
+            <div data-role="listView"
+                data-bind="source: Organizations"
+                data-template="primitiveTemplate">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id='primitiveTemplate'>
+    <div style="margin-left: 1em;" data-bind="text: this"></div>
+</script>
