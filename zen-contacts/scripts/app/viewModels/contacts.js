@@ -81,12 +81,7 @@ var contactsModel = (function () {
                 navigator.contacts.find(["displayName"], function onSuccess(contacts) {
                     // pass contacts from contacts array to options.success (might need cloning beforehand)*/
                     options.success([
-                         { DisplayName: "John Doe", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" },
-                         { DisplayName: "Jane Doe", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 2, NickName: "janed", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "Jane Doe" },
-                         { DisplayName: "Ivan Ivanov", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 3, NickName: "iviv", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Iv Inc" ], Name: "Ivan Ivanov" },
-                         { DisplayName: "Sting", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 4, NickName: "sti", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Pop star inc" ], Name: "Stingy" },
-                         { DisplayName: "Madonna", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 5, NickName: "mad", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Queen of pop inc" ], Name: "Madonja" },
-                
+                         { DisplayName: "John Doe", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" }
                     ]);
                 /*}, function onError(contactError) {
                     alert('onError!');
@@ -115,7 +110,6 @@ var contactsModel = (function () {
 // contacts view model
 var contactsViewModel = (function () {
     var contactSelected = function (e) {
-        // TODO: use this when we allow contact editing on the phone
         mobileApp.navigate('views/contactDetailsView.html?uid=' + e.data.uid);
     };
     var navigateHome = function () {
@@ -131,6 +125,7 @@ var contactsViewModel = (function () {
     return {
         contacts: contactsModel.contacts,
         contactSelected: contactSelected,
+
         logout: logout
     };
 }());
