@@ -30,6 +30,11 @@ var app = (function () {
     var onDeviceReady = function() {
         //Handle document events
         document.addEventListener("backbutton", onBackKeyDown, false);
+        
+        var contacts = navigator.contacts;
+        var myContact = contacts.create({"displayName": "Test User"});
+        alert(myContact);
+        // myContact.save();
     };
 
     document.addEventListener("deviceready", onDeviceReady, false);
