@@ -150,16 +150,18 @@ var contactsViewModel = (function () {
     
     // forces all records from source to go to destination
     var force = function(source, destination, callback) {
-        destination.fetch(function() {
-            while (this.data().length) {
-                this.remove(this.at(0));
-            }
-            
-            this.data(source.data().toJSON());
-            
-            this.sync();
+        source.fetch(function() {
+            destination.fetch(function() {
+                while (this.data().length) {
+                    this.remove(this.at(0));
+                }
+                
+                this.data(source.data().toJSON());
+                
+                this.sync();
 
-            callback();
+                callback();
+            });
         });
     };
     
