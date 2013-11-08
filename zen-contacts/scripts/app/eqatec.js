@@ -17,8 +17,8 @@
       if (result.IsCreated == "true")
         return;
       // Create the monitor instance using the unique product key for Zen contacts
-      var productId = "9b452bf012824167a240167c7d1807fa";
-      var version = "1.2.3";
+      var productId = "017E5FDF6CAD438587C07C9280FD3F98";
+      var version = "1.0.0";
       var settings = factory.CreateSettings(productId, version);
       settings.LoggingInterface = factory.CreateTraceLogger();
       factory.CreateMonitorWithSettings(settings,
