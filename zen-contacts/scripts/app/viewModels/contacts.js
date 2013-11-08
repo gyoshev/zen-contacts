@@ -2,27 +2,27 @@ var contactsModel = (function () {
     var contactModel = {
         id: 'Id',
         fields: {
-            displayName: {
+            DisplayName: {
                 field: 'DisplayName',
                 defaultValue: ''
             },
-            createdBy: {
+            CreatedBy: {
                 field: 'CreatedBy',
                 defaultValue: ''
             },
-            createdAt: {
+            CreatedAt: {
                 field: 'CreatedAt',
                 defaultValue: new Date()
             },
-            modifiedAt: {
+            ModifiedAt: {
                 field: 'ModifiedAt',
                 defaultValue: new Date()
             },
-            contactId: {
+            ContactId: {
                 fields: 'ContactId',
                 defaultValue: ''
             },
-            nickName: {
+            NickName: {
                 field: 'NickName',
                 defaultValue: ''
             },
@@ -34,7 +34,7 @@ var contactsModel = (function () {
                 field: 'Organizations',
                 defaultValue: []
             },
-            name: {
+            Name: {
                 field: 'Name',
                 defaultValue: ''
             }
@@ -79,7 +79,7 @@ var contactsModel = (function () {
             read: function(options) {
                 // check if the device uuid is the same as the simulator's
                 // if so - use mock data
-                if (navigator.contacts && navigator.contacts.find && device.uuid != 'e0908060g38bde8e6740011221af335301010333') {
+                if (navigator.contacts.find && device.uuid != 'e0908060g38bde8e6740011221af335301010333') {
                     // find all contacts
                     var cfOptions = new ContactFindOptions();
                     cfOptions.filter = "";
@@ -94,21 +94,21 @@ var contactsModel = (function () {
                 } else {
                     // mock data for simulator
                     options.success([
-                        { DisplayName: "Ferris Hamilton", PhoneNumbers: ["(05718) 7340682"], Organizations: [ "Netus Et Malesuada Limited" ] },
-                        { DisplayName: "Nyssa Padilla", PhoneNumbers: ["(05873) 5541218"], Organizations: [ "Eros Non Foundation" ] },
-                        { DisplayName: "Keaton Rogers", PhoneNumbers: ["(039) 94582937"], Organizations: [ "Arcu Eu LLC" ] },
-                        { DisplayName: "Hilary Fulton", PhoneNumbers: ["(039147) 186161"], Organizations: [ "Aliquet Foundation" ] },
-                        { DisplayName: "Lyle Bullock", PhoneNumbers: ["(038943) 047972"], Organizations: [ "Nulla Aliquet Proin Limited" ] },
-                        { DisplayName: "Prescott Norris", PhoneNumbers: ["(074) 16872420"], Organizations: [ "Dictum Institute" ] },
-                        { DisplayName: "Keefe Monroe", PhoneNumbers: ["(035919) 691892"], Organizations: [ "Eu Accumsan Sed Institute" ] },
-                        { DisplayName: "Francesca Odom", PhoneNumbers: ["(033037) 772308"], Organizations: [ "Vel Vulputate Associates" ] },
-                        { DisplayName: "Raya Lee", PhoneNumbers: ["(0174) 32845613"], Organizations: [ "Mollis Integer Tincidunt PC" ] },
-                        { DisplayName: "Merritt Joyce", PhoneNumbers: ["(039960) 069465"], Organizations: [ "Facilisis Magna LLP" ] },
-                        { DisplayName: "Candice Marsh", PhoneNumbers: ["(006) 88780519"], Organizations: [ "Malesuada Inc." ] },
-                        { DisplayName: "Lois Pierce", PhoneNumbers: ["(09262) 3726396"], Organizations: [ "Etiam Ligula PC" ] },
-                        { DisplayName: "Florence Stephens", PhoneNumbers: ["(034858) 065644"], Organizations: [ "Eros Nec PC" ] },
-                        { DisplayName: "Hannah Nash", PhoneNumbers: ["(0966) 87062978"], Organizations: [ "Cras Inc." ] },
-                        { DisplayName: "Britanni Blankenship", PhoneNumbers: ["(031597) 653901"], Organizations: [ "Nonummy Ac Feugiat LLC" ] }
+                        { displayName: "Ferris Hamilton", PhoneNumbers: ["(05718) 7340682"], Organizations: [ "Netus Et Malesuada Limited" ] },
+                        { displayName: "Nyssa Padilla", PhoneNumbers: ["(05873) 5541218"], Organizations: [ "Eros Non Foundation" ] },
+                        { displayName: "Keaton Rogers", PhoneNumbers: ["(039) 94582937"], Organizations: [ "Arcu Eu LLC" ] },
+                        { displayName: "Hilary Fulton", PhoneNumbers: ["(039147) 186161"], Organizations: [ "Aliquet Foundation" ] },
+                        { displayName: "Lyle Bullock", PhoneNumbers: ["(038943) 047972"], Organizations: [ "Nulla Aliquet Proin Limited" ] },
+                        { displayName: "Prescott Norris", PhoneNumbers: ["(074) 16872420"], Organizations: [ "Dictum Institute" ] },
+                        { displayName: "Keefe Monroe", PhoneNumbers: ["(035919) 691892"], Organizations: [ "Eu Accumsan Sed Institute" ] },
+                        { displayName: "Francesca Odom", PhoneNumbers: ["(033037) 772308"], Organizations: [ "Vel Vulputate Associates" ] },
+                        { displayName: "Raya Lee", PhoneNumbers: ["(0174) 32845613"], Organizations: [ "Mollis Integer Tincidunt PC" ] },
+                        { displayName: "Merritt Joyce", PhoneNumbers: ["(039960) 069465"], Organizations: [ "Facilisis Magna LLP" ] },
+                        { displayName: "Candice Marsh", PhoneNumbers: ["(006) 88780519"], Organizations: [ "Malesuada Inc." ] },
+                        { displayName: "Lois Pierce", PhoneNumbers: ["(09262) 3726396"], Organizations: [ "Etiam Ligula PC" ] },
+                        { displayName: "Florence Stephens", PhoneNumbers: ["(034858) 065644"], Organizations: [ "Eros Nec PC" ] },
+                        { displayName: "Hannah Nash", PhoneNumbers: ["(0966) 87062978"], Organizations: [ "Cras Inc." ] },
+                        { displayName: "Britanni Blankenship", PhoneNumbers: ["(031597) 653901"], Organizations: [ "Nonummy Ac Feugiat LLC" ] }
                     ]);
                 }
             }
@@ -154,10 +154,7 @@ var contactsViewModel = (function () {
         var serverContacts = contactsModel.serverContacts,
             currentUser = usersModel.currentUser.data || {};
         
-        serverContacts.filter([
-            { field: 'CreatedBy', operator: 'eq', value: currentUser.Id }
-        ]);
-        
+        serverContacts._filter.filters = { field: 'CreatedBy', operator: 'eq', value: currentUser.Id };
         // TODO: show "sync in progress" message during the fetch
         serverContacts.fetch(function() {
             var serverData = this.data();

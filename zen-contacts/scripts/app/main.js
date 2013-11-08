@@ -2,13 +2,8 @@
 
 // global error handling
 var showAlert = function(message, title, callback) {
-    if (navigator.notification) {
-        navigator.notification.alert(message, callback || $.noop, title, 'OK');
-    } else {
-        alert(message);
-        (callback || $.noop)();
-    }
-    
+    navigator.notification.alert(message, callback || function () {
+    }, title, 'OK');
 };
 var showError = function(message) {
     showAlert(message, 'Error occured');
