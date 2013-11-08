@@ -69,8 +69,7 @@ var contactsModel = (function () {
         transport: {
             // required by Everlive
             typeName: 'Contact'
-        },
-        filter: { field: 'CreatedBy', operator: 'eq', value: (usersModel.currentUser.data || {}).Id }
+        }
     });
     
     // Datasource that syncs with phone
@@ -116,12 +115,7 @@ var contactsViewModel = (function () {
     var phoneContacts = contactsModel.contacts;
     
     var sync = function() {
-        var serverContacts = contactsModel.serverContacts,
-            currentUser = usersModel.currentUser.data || {};
-        
-        serverContacts.filter([
-            { field: 'CreatedBy', operator: 'eq', value: currentUser.Id }
-        ]);
+        var serverContacts = contactsModel.serverContacts;
         
         // TODO: show "sync in progress" message during the fetch
         serverContacts.fetch(function() {
