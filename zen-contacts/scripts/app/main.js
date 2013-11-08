@@ -32,6 +32,11 @@ var onDeviceReady = function() {
           document.body.style.marginTop = "20px";
     }
     
+    // check network connection
+    if (navigator.network.connection.type == Connection.NONE) {
+        showError('This app requires an internet connection.');
+    }
+    
     document.addEventListener("backbutton", onBackKeyDown, false);
 };
 

@@ -1,9 +1,29 @@
+var waitOnClose = function() {    
+    $("#modalview-syncProgress").data("kendoMobileModalView").open();
+    
+     setTimeout(function() {
+          $("#modalview-syncProgress").data("kendoMobileModalView").close();
+         }, 5000);
+    };
+
+function openModal() {
+   $("#modalview-syncProgress").data("kendoMobileModalView").open();
+}
+
+function closeModal() {
+   $("#modalview-syncProgress").data("kendoMobileModalView").close();
+}
+
 var contactsModel = (function () {
     var contactModel = {
         id: 'Id',
         fields: {
-            DisplayName: {
-                field: 'DisplayName',
+            displayName: {
+                field: 'displayName',
+                defaultValue: ''
+            },
+            CreatedBy: {
+                field: 'CreatedBy',
                 defaultValue: ''
             },
             CreatedAt: {
@@ -14,24 +34,24 @@ var contactsModel = (function () {
                 field: 'ModifiedAt',
                 defaultValue: new Date()
             },
-            ContactId: {
-                fields: 'ContactId',
+            contactId: {
+                fields: 'contactId',
                 defaultValue: ''
             },
-            NickName: {
-                field: 'NickName',
+            nickName: {
+                field: 'nickName',
                 defaultValue: ''
             },
-            PhoneNumbers: {
-                field: 'PhoneNumbers',
+            phoneNumbers: {
+                field: 'phoneNumbers',
                 defaultValue: []
             },
-            Organizations: {
-                field: 'Organizations',
+            organizations: {
+                field: 'organizations',
                 defaultValue: []
             },
-            Name: {
-                field: 'Name',
+            name: {
+                field: 'name',
                 defaultValue: ''
             }
         },
@@ -55,37 +75,29 @@ var contactsModel = (function () {
             };
         }
     };
-    
-    /*// Datasource that syncs with everlive
-    var ELcontactsDataSource = new kendo.data.DataSource({
+
+    // Datasource that syncs with everlive
+    var elContactsDataSource = new kendo.data.DataSource({
         type: 'everlive',
         schema: {
             model: contactModel
         },
         transport: {
             // required by Everlive
-            typeName: 'Contacts'
-        }
-    });*/
+            typeName: 'Contact'
+        },
+        requestStart: function () { openModal() },
+        change: function ()  { closeModal() },
+        //error: function() { openModal() }
+    });
     
     // Datasource that syncs with phone
     var contactsDataSource = new kendo.data.DataSource({
         transport: {
-            read: function(options) {
-                /*// find all contacts
-                var options = new ContactFindOptions();
-                options.filter = "";
-                options.multiple = true;
-                
-                navigator.contacts.find(["displayName"], function onSuccess(contacts) {
-                    // pass contacts from contacts array to options.success (might need cloning beforehand)*/
-                    options.success([
-                         { DisplayName: "John Doe", CreatedAt: new Date(), ModifiedAt: new Date(), ContactId: 1, NickName: "johnd", PhoneNumbers: [ "+359 888 123456" ], Organizations: [ "Telerik" ], Name: "John Doe" }
-                    ]);
-                /*}, function onError(contactError) {
-                    alert('onError!');
-                }, options);*/
-            }
+            read: phonebook.CRUD.read,
+            update: phonebook.CRUD.update,
+            create: phonebook.CRUD.create,
+            destroy: phonebook.CRUD.destroy
         },
         schema: {
             model: contactModel
@@ -97,33 +109,112 @@ var contactsModel = (function () {
                 $('#no-contacts-span').show();
             }
         },
-        sort: { field: 'DisplayName', dir: 'desc' }
+        sort: { field: 'displayName', dir: 'asc' },
+        filter: [{ field: 'displayName', operator: 'neq', value: '' }],
+        requestStart: function (e) { openModal() },
+        change: function (e)  { closeModal }
     });
     
     return {
-        contacts: contactsDataSource
+        contacts: contactsDataSource,
+        serverContacts: elContactsDataSource
     };
 }());
 
 // contacts view model
 var contactsViewModel = (function () {
-    var contactSelected = function (e) {
-        // TODO: use this when we allow contact editing on the phone
-        mobileApp.navigate('views/activityView.html?uid=' + e.data.uid);
-    };
     var navigateHome = function () {
         mobileApp.navigate('#welcome');
     };
+    
     var logout = function () {
         AppHelper.logout()
-        .then(navigateHome, function (err) {
-            showError(err.message);
-            navigateHome();
+            .then(navigateHome, function (err) {
+                showError(err.message);
+                navigateHome();
+            });
+    };
+ 
+    
+    var phoneContacts = contactsModel.contacts;
+    
+    var contactSelected = function (e) {
+        mobileApp.navigate('views/contactDetailsView.html?uid=' + e.data.uid);
+    };
+    
+    // cleans all contacts from the phone datasource
+    var purge = function() {
+        phoneContacts.data([]);
+        phoneContacts.sync();
+    };
+    
+    var populate = function() {
+        phoneContacts.data([
+            { displayName: "Ferris Hamilton", phoneNumbers: ["(05718) 7340682"], organizations: [ "Netus Et Malesuada Limited" ] },
+            { displayName: "Nyssa Padilla", phoneNumbers: ["(05873) 5541218"], organizations: [ "Eros Non Foundation" ] },
+            { displayName: "Keaton Rogers", phoneNumbers: ["(039) 94582937"], organizations: [ "Arcu Eu LLC" ] },
+            { displayName: "Hilary Fulton", phoneNumbers: ["(039147) 186161"], organizations: [ "Aliquet Foundation" ] },
+            { displayName: "Lyle Bullock", phoneNumbers: ["(038943) 047972"], organizations: [ "Nulla Aliquet Proin Limited" ] },
+            { displayName: "Prescott Norris", phoneNumbers: ["(074) 16872420"], organizations: [ "Dictum Institute" ] },
+            { displayName: "Keefe Monroe", phoneNumbers: ["(035919) 691892"], organizations: [ "Eu Accumsan Sed Institute" ] },
+            { displayName: "Francesca Odom", phoneNumbers: ["(033037) 772308"], organizations: [ "Vel Vulputate Associates" ] },
+            { displayName: "Raya Lee", phoneNumbers: ["(0174) 32845613"], organizations: [ "Mollis Integer Tincidunt PC" ] },
+            { displayName: "Merritt Joyce", phoneNumbers: ["(039960) 069465"], organizations: [ "Facilisis Magna LLP" ] },
+            { displayName: "Candice Marsh", phoneNumbers: ["(006) 88780519"], organizations: [ "Malesuada Inc." ] },
+            { displayName: "Lois Pierce", phoneNumbers: ["(09262) 3726396"], organizations: [ "Etiam Ligula PC" ] },
+            { displayName: "Florence Stephens", phoneNumbers: ["(034858) 065644"], organizations: [ "Eros Nec PC" ] },
+            { displayName: "Hannah Nash", phoneNumbers: ["(0966) 87062978"], organizations: [ "Cras Inc." ] },
+            { displayName: "Britanni Blankenship", phoneNumbers: ["(031597) 653901"], organizations: [ "Nonummy Ac Feugiat LLC" ] }
+        ]);
+        
+        phoneContacts.sync();
+    };
+    
+    // forces all records from source to go to destination
+    var force = function(source, destination, callback) {
+        source.fetch(function() {
+            destination.fetch(function() {
+                while (this.data().length) {
+                    this.remove(this.at(0));
+                }
+                
+                this.data(source.data().toJSON());
+                
+                this.sync();
+
+                callback();
+            });
         });
     };
+    
+    var forceUpload = function() {
+        var button = this;
+        
+        force(phoneContacts, contactsModel.serverContacts, function() {
+            closeModal.call(button);
+        });
+    };
+    
+    var forceDownload = function() {
+        var button = this;
+        
+        force(contactsModel.serverContacts, phoneContacts, function() {
+            closeModal.call(button);
+        });
+    };
+    
+    var closeModal = function() {
+        $(this.element).closest("[data-role='modalview']").kendoMobileModalView("close");
+    };
+    
     return {
-        contacts: contactsModel.contacts,
-        activitySelected: contactSelected,
+        contacts: phoneContacts,
+        contactSelected: contactSelected,
+        forceDownload: forceDownload,
+        forceUpload: forceUpload,
+        closeModal: closeModal,
+        purge: purge,
+        populate: populate,
         logout: logout
     };
 }());

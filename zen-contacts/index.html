@@ -8,11 +8,15 @@
         <script src="kendo/js/kendo.mobile.min.js"></script>
         <script src="scripts/lib/everlive.all.min.js"></script>
         <script src="scripts/app/identity-provider.js"></script>
-        <script src="scripts/app/sync.js" type="text/javascript"></script>
-        <script src="scripts/app/main.js" type="text/javascript"></script>
+        <script src="scripts/app/eqatec.js"></script>
+        <script src="scripts/app/main.js"></script>
+        <script src="scripts/app/viewModels/login.js"></script>
+        <script src="scripts/app/viewModels/phonebookCrudOperation.js"></script>
+        <script src="scripts/app/viewModels/contacts.js"></script>
+        <script src="scripts/app/viewModels/contactDetails.js"></script>
 
-        <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
-        <link href="styles/main.css" rel="stylesheet" />
+        <link rel="stylesheet" href="kendo/styles/kendo.mobile.all.min.css" />
+        <link rel="stylesheet" href="styles/main.css" />
     </head>
     <body id="friendsApp">
         <section data-role="layout" data-id="default">
@@ -32,14 +36,14 @@
             <ol class="group-wrp">
                 <li>
                     <span data-role="touch" data-bind="events: { tap: login }" style="display: inline-block">
-                        <a data-role="button" class="btn-login btn-big">Login</a>
+                        <a data-role="button" class="btn-login btn-big" data-icon="contacts">Login</a>
                     </span>
                     <span style="display: inline-block">
-                        <a data-role="button" href="views/signupView.html" class="btn-signup btn-big">Sign up</a>
+                        <a data-role="button" href="views/signupView.html" class="btn-signup btn-big" data-icon="compose">Sign up</a>
                     </span>
                 </li>
-                <li class="b-top" data-role="touch" data-bind="events: { tap: loginWithFacebook }">
-                    <a data-role="button" class="btn-login-fb btn-big">Login via Facebook</a>
+                <li class="social-login" data-role="touch" data-bind="events: { tap: loginWithFacebook }">
+                    <a data-role="button" class="btn-login-fb btn-big">Login with Facebook</a>
                 </li>
             </ol>
         </div>
