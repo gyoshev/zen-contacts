@@ -27,8 +27,7 @@
     <label for="syncFailed">Sync failed</label><br>
     <label for="syncFailedMsg">An error occurred during sunchronization. Your contacts are not synchronized with the server.</label>
    
-    <a data-click="closeModalViewSyncFailed" id="modalview-syncFailed-cancel-button" type="button" data-role="button">Cancel</a>
-    <a data-click="closeModalViewTry" id="modalview-syncFailed-try-button" type="button" data-role="button">Try again</a>
+    <a data-click="closeModalViewSyncFailed" id="modalview-syncFailed-cancel-button" type="button" data-role="button">OK</a>
 </div>
 
 <!-- Activities ListView Template -->
@@ -41,9 +40,6 @@
         $("#modalview-syncProgress").kendoMobileModalView("close");
     }
     function closeModalViewSyncFailed() {
-        $("#modalview-syncFailed").kendoMobileModalView("close");
-    }
-    function closeModalViewTry() {
         $("#modalview-syncFailed").kendoMobileModalView("close");
     }
 </script>
