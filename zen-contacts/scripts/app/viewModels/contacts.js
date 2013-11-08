@@ -1,19 +1,3 @@
-var waitOnClose = function() {    
-    $("#modalview-syncProgress").data("kendoMobileModalView").open();
-    
-     setTimeout(function() {
-          $("#modalview-syncProgress").data("kendoMobileModalView").close();
-         }, 5000);
-    };
-
-function openModal() {
-   $("#modalview-syncProgress").data("kendoMobileModalView").open();
-}
-
-function closeModal() {
-   $("#modalview-syncProgress").data("kendoMobileModalView").close();
-}
-
 var contactsModel = (function () {
     var contactModel = {
         id: 'Id',
@@ -86,9 +70,9 @@ var contactsModel = (function () {
             // required by Everlive
             typeName: 'Contact'
         },
-        requestStart: function () { openModal() },
-        change: function ()  { closeModal() },
-        //error: function() { openModal() }
+        error: function() {
+            $("#modalview-syncFailed").kendoMobileModalView("open");
+        }
     });
     
     // Datasource that syncs with phone
@@ -110,9 +94,7 @@ var contactsModel = (function () {
             }
         },
         sort: { field: 'displayName', dir: 'asc' },
-        filter: [{ field: 'displayName', operator: 'neq', value: '' }],
-        requestStart: function (e) { openModal() },
-        change: function (e)  { closeModal }
+        filter: [{ field: 'displayName', operator: 'neq', value: '' }]
     });
     
     return {
@@ -137,10 +119,6 @@ var contactsViewModel = (function () {
  
     
     var phoneContacts = contactsModel.contacts;
-    
-    var contactSelected = function (e) {
-        mobileApp.navigate('views/contactDetailsView.html?uid=' + e.data.uid);
-    };
     
     // cleans all contacts from the phone datasource
     var purge = function() {
@@ -172,6 +150,8 @@ var contactsViewModel = (function () {
     
     // forces all records from source to go to destination
     var force = function(source, destination, callback) {
+        mobileApp.showLoading();
+        
         source.fetch(function() {
             destination.fetch(function() {
                 while (this.data().length) {
@@ -181,6 +161,8 @@ var contactsViewModel = (function () {
                 this.data(source.data().toJSON());
                 
                 this.sync();
+                
+                mobileApp.hideLoading();
 
                 callback();
             });
@@ -209,7 +191,6 @@ var contactsViewModel = (function () {
     
     return {
         contacts: phoneContacts,
-        contactSelected: contactSelected,
         forceDownload: forceDownload,
         forceUpload: forceUpload,
         closeModal: closeModal,

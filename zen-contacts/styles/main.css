@@ -160,8 +160,14 @@ textarea
     margin-top: 1em;
 }
 
-#modalview-syncType .km-button {
+.blockButtons .km-button {
     display: block;
     text-align: center;
     margin: 1em 1em 0;
+}
+
+#modalview-syncFailed p {
+    font-size: 1.2em;
+    text-align: center;
+    padding-bottom: .7em;
 }
