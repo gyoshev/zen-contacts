@@ -26,11 +26,11 @@ var contactsModel = (function () {
                 field: 'NickName',
                 defaultValue: ''
             },
-            PhoneNumbers: {
+            phoneNumbers: {
                 field: 'PhoneNumbers',
                 defaultValue: []
             },
-            Organizations: {
+            organizations: {
                 field: 'Organizations',
                 defaultValue: []
             },
@@ -184,10 +184,17 @@ var contactsViewModel = (function () {
         mobileApp.navigate('views/contactDetailsView.html?uid=' + e.data.uid);
     };
     
+    // cleans all contacts from the phone datasource
+    var purge = function() {
+        phoneContacts.data([]);
+        phoneContacts.sync();
+    };
+    
     return {
         contacts: phoneContacts,
         contactSelected: contactSelected,
         sync: sync,
+        purge: purge,
         logout: logout
     };
 }());
