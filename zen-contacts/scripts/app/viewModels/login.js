@@ -10,18 +10,6 @@ var el = new Everlive({
     scheme: applicationSettings.scheme
 });
 
-var facebook = new IdentityProvider({
-    name: "Facebook",
-    loginMethodName: "loginWithFacebook",
-    endpoint: "https://www.facebook.com/dialog/oauth",
-    response_type:"token",
-    client_id: "622842524411586",
-    redirect_uri:"https://www.facebook.com/connect/login_success.html",
-    access_type:"online",
-    scope:"email",
-    display: "touch"
-});
-
 var AppHelper = {
     resolveProfilePictureUrl: function (id) {
         if (id && id !== applicationSettings.emptyGuid) {
@@ -96,30 +84,70 @@ var loginViewModel = (function () {
                 showError(err.message);
             });
     };
-    var loginWithFacebook = function() {
-        mobileApp.showLoading();
-        facebook.getAccessToken(function(token) {
-            el.Users.loginWithFacebook(token)
-                .then(function () {
-                    return usersModel.load();
-                })
-                .then(function () {
-                    mobileApp.hideLoading();
-                    mobileApp.navigate('views/contactsView.html');
-                })
-                .then(null, function (err) {
-                    mobileApp.hideLoading();
-                    if (err.code = 214) {
-                        showError("The specified identity provider is not enabled in the backend portal.");
-                    } else {
-                        showError(err.message);
-                    }
-                });
-        })
-    } 
+    
+    function loginHandler(providerOptions) {
+        return function() {
+            mobileApp.showLoading();
+
+            new IdentityProvider(providerOptions).getAccessToken(function(token) {
+                el.Users[providerOptions.loginMethodName](token)
+                    .then(function () { return usersModel.load(); })
+                    .then(function () { mobileApp.hideLoading(); })
+                    .then(function () {
+                        mobileApp.navigate('views/contactsView.html');
+                    }, function (err) {
+                        mobileApp.hideLoading();
+                        if (err.code = 214) {
+                            showError("The specified identity provider is not enabled in the backend portal.");
+                        } else {
+                            showError(err.message);
+                        }
+                    });
+            })
+        }
+    }
+    
+    var loginWithFacebook = loginHandler({
+        name: "Facebook",
+        loginMethodName: "loginWithFacebook",
+        endpoint: "https://www.facebook.com/dialog/oauth",
+        response_type:"token",
+        client_id: "622842524411586",
+        redirect_uri:"https://www.facebook.com/connect/login_success.html",
+        access_type:"online",
+        scope:"email",
+        display: "touch"
+    });
+    
+    var loginWithGoogle = loginHandler({
+        name: "Google",
+        loginMethodName:"loginWithGoogle",
+        endpoint: "https://accounts.google.com/o/oauth2/auth",
+        response_type: "token",
+        client_id: "778590299624.apps.googleusercontent.com",
+        redirect_uri: "https://www.facebook.com/connect/login_success.html",
+        scope: "https://www.googleapis.com/auth/userinfo.profile",
+        access_type: "online",
+        display: "touch"
+    });
+    
+    var loginWithLiveID = loginHandler({
+        name: "LiveID",
+        loginMethodName:"loginWithLiveID",
+        endpoint: "https://login.live.com/oauth20_authorize.srf",
+        response_type: "token",
+        client_id: "00000000480F82FA",
+        redirect_uri: "https://www.everlive.com/SignIn",
+        scope: "wl.basic",
+        access_type: "online",
+        display: "touch"
+    });
+    
     return {
         login: login,
-        loginWithFacebook: loginWithFacebook
+        loginWithFacebook: loginWithFacebook,
+        loginWithGoogle: loginWithGoogle,
+        loginWithLiveID: loginWithLiveID
     };
 }());
 

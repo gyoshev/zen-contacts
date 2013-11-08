@@ -21,33 +21,6 @@ body.ios-offset {
     min-width: 7em;
 }
 
-.btn-login-fb::before
-{
-    display: block;
-    content: " ";
-    width: 1em;
-    height: 1.2em;
-    position: absolute;
-    top: .6em;
-    
-    background-image: url(images/sprite.png);
-    background-repeat: no-repeat;
-    background-size: 3em auto;
-    background-color: transparent;
-    background-position: 0 -13.9em;
-}
-
-.km-button.btn-login-fb
-{
-    background-color: #306DB0;
-    color: #fff;
-    padding: .6em;
-}
-
-.btn-login-fb .km-text {
-    padding-left: 1.2em;
-}
-
 .sngl-btn-wrp
 { 
     text-align: center;
@@ -98,8 +71,9 @@ textarea
     margin: .8em .3em .5em;
     text-align: right;
     line-height: .9;
-    font-size: 4em;  
-    font-weight: normal;
+    font-size: 3em;
+    font-weight: bold;
+    font-family: "Century Gothic";
     color: #444;
 }
 
@@ -155,10 +129,49 @@ textarea
 {
     content: "\e0f6";
 }
-
-.social-login {
-    margin-top: 1em;
+.group-wrp .social-login:first-child{
+    margin-top: 3em;
 }
+
+.welcome-scrn .group-wrp .social-login {
+    margin: 0;
+    padding: 0;
+}
+.social-login .btn-big {
+    width: 85%;
+    text-align: left;
+}
+
+.welcome-scrn .group-wrp {
+    margin-top: 2em;
+}
+
+.social-login .km-button {
+    
+    color: #fff;
+    padding: .4em .6em .4em 2em;
+}
+
+.social-login .km-button::before
+{
+    display: none;
+    content: " ";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: .6em;
+    left: .6em;
+    
+    background-image: url(images/sprite-social.png);
+    background-color: transparent;
+    background-size: 16px 80px;
+}
+
+.km-button.btn-login-fb { background-color: #306DB0; }
+.km-button.btn-login-fb::before { background-position: 3px -298px; }
+.km-button.btn-login-google { background-color: #dd4b39; }
+.km-button.btn-login-liveid { background-color: #00a1b5; }
+
 
 .blockButtons .km-button {
     display: block;

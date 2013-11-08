@@ -24,7 +24,7 @@
         </section>
         <!--WELCOME VIEW -->
         <div data-role="view" id="welcome" data-layout="default" class="welcome-scrn form-view" data-model="app.viewModels.login">
-            <h1><b>Zen<br>Contacts</b></h1>
+            <h1>Zen Contacts</h1>
             <form id="login-form">
                 <div class="form-row">
                     <input type="text" id="loginUsername" placeholder="Username" required validationMessage="Username is required!" />
@@ -42,8 +42,16 @@
                         <a data-role="button" href="views/signupView.html" class="btn-signup btn-big" data-icon="compose">Sign up</a>
                     </span>
                 </li>
+            </ol>
+            <ol class="group-wrp">
                 <li class="social-login" data-role="touch" data-bind="events: { tap: loginWithFacebook }">
                     <a data-role="button" class="btn-login-fb btn-big">Login with Facebook</a>
+                </li>
+                <li class="social-login" data-role="touch" data-bind="events: { tap: loginWithGoogle }">
+                    <a data-role="button" class="btn-login-google btn-big">Login with Google</a>
+                </li>
+                <li class="social-login" data-role="touch" data-bind="events: { tap: loginWithLiveID }">
+                    <a data-role="button" class="btn-login-liveid btn-big">Login with LiveID</a>
                 </li>
             </ol>
         </div>
