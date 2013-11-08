@@ -29,7 +29,7 @@ var onBackKeyDown = function(e) {
 var onDeviceReady = function() {
     //Handle document events
     if (parseFloat(window.device.version) >= 7.0) {
-          document.body.style.marginTop = "20px";
+        $(document.body).addClass("ios-offset");
     }
     
     // check network connection
