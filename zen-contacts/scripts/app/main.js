@@ -37,6 +37,7 @@ var onDeviceReady = function() {
         showError('This app requires an internet connection.');
     }
     
+    window.analytics.Start();
     document.addEventListener("backbutton", onBackKeyDown, false);
 };
 
