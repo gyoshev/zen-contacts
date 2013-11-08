@@ -79,13 +79,15 @@ textarea
 /* List widget */
 .no-items-msg
 {
-    margin: 1.5rem;
-    font-size: 1rem;
-    color: #ffc;
+    padding: 5rem 1rem 1rem;
+    font-size: 1.5rem;
+    text-align: center;
 }
 .no-items-msg b
 {
-    font-size: 1.2rem;
+    padding-bottom: 2rem;
+    display: inline-block;
+    font-size: 2rem;
     font-weight: normal;
 }
 
