@@ -116,31 +116,6 @@ var contactsViewModel = (function () {
     
     var phoneContacts = contactsModel.contacts;
     
-    var sync = function() {
-        var serverContacts = contactsModel.serverContacts;
-        
-        // TODO: show "sync in progress" message during the fetch
-        serverContacts.fetch(function() {
-            var serverData = this.data();
-            var phoneData = phoneContacts.data();
-            
-            if (!serverData.length) {
-                // server records are empty
-                this.data(phoneData.toJSON());
-                this.sync();
-            } else if (!phoneData.length) {
-                // server has contacts, but phone contacts are empty
-                phoneContacts.data(serverData.toJSON());
-                phoneContacts.sync();
-            } else {
-                // both server and phone have entries, proceed to merge
-                alert("on phone: " + phoneData.length + "; on server: " + serverData.length);
-                
-                // TODO: implement merge
-            }
-        });
-    };
-    
     var contactSelected = function (e) {
         mobileApp.navigate('views/contactDetailsView.html?uid=' + e.data.uid);
     };
@@ -173,25 +148,35 @@ var contactsViewModel = (function () {
         phoneContacts.sync();
     };
     
-    var forceUpload = function() {
-        var button = this;
-        var serverContacts = contactsModel.serverContacts;
-        
-        serverContacts.fetch(function() {
+    // forces all records from source to go to destination
+    var force = function(source, destination, callback) {
+        destination.fetch(function() {
             while (this.data().length) {
                 this.remove(this.at(0));
             }
             
-            this.data(phoneContacts.data().toJSON());
+            this.data(source.data().toJSON());
             
             this.sync();
+
+            callback();
+        });
+    };
+    
+    var forceUpload = function() {
+        var button = this;
+        
+        force(phoneContacts, contactsModel.serverContacts, function() {
             closeModal.call(button);
         });
     };
     
     var forceDownload = function() {
-        phoneContacts.data([]);
-        phoneContacts.sync();
+        var button = this;
+        
+        force(contactsModel.serverContacts, phoneContacts, function() {
+            closeModal.call(button);
+        });
     };
     
     var closeModal = function() {
@@ -201,7 +186,6 @@ var contactsViewModel = (function () {
     return {
         contacts: phoneContacts,
         contactSelected: contactSelected,
-        sync: sync,
         forceDownload: forceDownload,
         forceUpload: forceUpload,
         closeModal: closeModal,
