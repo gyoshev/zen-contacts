@@ -1,6 +1,6 @@
 var contactsModel = (function () {
     var contactModel = {
-        id: 'contactId',
+        id: 'Id',
         fields: {
             displayName: {
                 field: 'displayName',
@@ -151,10 +151,38 @@ var contactsViewModel = (function () {
         phoneContacts.sync();
     };
     
+    var forceUpload = function() {
+        var button = this;
+        var serverContacts = contactsModel.serverContacts;
+        
+        serverContacts.fetch(function() {
+            while (this.data().length) {
+                this.remove(this.at(0));
+            }
+            
+            this.data(phoneContacts.data().toJSON());
+            
+            this.sync();
+            closeModal.call(button);
+        });
+    };
+    
+    var forceDownload = function() {
+        phoneContacts.data([]);
+        phoneContacts.sync();
+    };
+    
+    var closeModal = function() {
+        $(this.element).closest("[data-role='modalview']").kendoMobileModalView("close");
+    };
+    
     return {
         contacts: phoneContacts,
         contactSelected: contactSelected,
         sync: sync,
+        forceDownload: forceDownload,
+        forceUpload: forceUpload,
+        closeModal: closeModal,
         purge: purge,
         logout: logout
     };
