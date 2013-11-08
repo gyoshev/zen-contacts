@@ -112,6 +112,7 @@ var contactsModel = (function () {
                     ]);
                 }
             }
+             // TODO: implement create / update / delete operations for this datasource
         },
         schema: {
             model: contactModel
@@ -164,14 +165,17 @@ var contactsViewModel = (function () {
             
             if (!serverData.length) {
                 // server records are empty
-                // TODO: push all contacts
-                this.add(phoneData[0].toJSON()); // clones the first contact and pushes it to the server
+                this.data(phoneData.toJSON());
                 this.sync();
             } else if (!phoneData.length) {
                 // server has contacts, but phone contacts are empty
+                phoneContacts.data(serverData.toJSON());
+                phoneContacts.sync();
             } else {
                 // both server and phone have entries, proceed to merge
                 alert("on phone: " + phoneData.length + "; on server: " + serverData.length);
+                
+                // TODO: implement merge
             }
         });
     };
