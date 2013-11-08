@@ -1,3 +1,19 @@
+var waitOnClose = function() {    
+    $("#modalview-syncProgress").data("kendoMobileModalView").open();
+    
+     setTimeout(function() {
+          $("#modalview-syncProgress").data("kendoMobileModalView").close();
+         }, 5000);
+    };
+
+function openModal() {
+   $("#modalview-syncProgress").data("kendoMobileModalView").open();
+}
+
+function closeModal() {
+   $("#modalview-syncProgress").data("kendoMobileModalView").close();
+}
+
 var contactsModel = (function () {
     var contactModel = {
         id: 'Id',
@@ -59,7 +75,7 @@ var contactsModel = (function () {
             };
         }
     };
-    
+
     // Datasource that syncs with everlive
     var elContactsDataSource = new kendo.data.DataSource({
         type: 'everlive',
@@ -69,7 +85,10 @@ var contactsModel = (function () {
         transport: {
             // required by Everlive
             typeName: 'Contact'
-        }
+        },
+        requestStart: function () { openModal() },
+        change: function ()  { closeModal() },
+        //error: function() { openModal() }
     });
     
     // Datasource that syncs with phone
@@ -91,7 +110,9 @@ var contactsModel = (function () {
             }
         },
         sort: { field: 'displayName', dir: 'asc' },
-        filter: [{ field: 'displayName', operator: 'neq', value: '' }]
+        filter: [{ field: 'displayName', operator: 'neq', value: '' }],
+        requestStart: function (e) { openModal() },
+        change: function (e)  { closeModal }
     });
     
     return {
@@ -113,6 +134,7 @@ var contactsViewModel = (function () {
                 navigateHome();
             });
     };
+ 
     
     var phoneContacts = contactsModel.contacts;
     
