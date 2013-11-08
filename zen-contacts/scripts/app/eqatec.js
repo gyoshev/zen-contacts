@@ -1,48 +1,64 @@
-// This application is using EQATEC Analytics
-// Insert this script snippet in an appropriate place in your code and
-// call Start and Stop when your application starts and ends.
-// See the documentation at http://www.telerik.com/analytics/resources/documentation
-//
-(function(g) {
-  // Make analytics available via the window.analytics variable
-  // Start analytics by calling window.analytics.Start()
-  var analytics = g.analytics = g.analytics || {};
-
-  analytics.Start = function()
-  {
-    // Handy shortcuts to the analytics api
-    var factory = window.plugins.EqatecAnalytics.Factory;
-
-    factory.IsMonitorCreated(function(result) {
-      if (result.IsCreated == "true")
-        return;
-      // Create the monitor instance using the unique product key for Zen contacts
-      var productId = "9b452bf012824167a240167c7d1807fa";
-      var version = "1.2.3";
-      var settings = factory.CreateSettings(productId, version);
-      settings.LoggingInterface = factory.CreateTraceLogger();
-      factory.CreateMonitorWithSettings(settings,
-        function() {
-          console.log("Monitor created");
-          // Start the monitor
-          window.plugins.EqatecAnalytics.Monitor.Start(function() {
+(function (global) {
+    var monitor,
+        app = global.app = global.app || {};
+    
+    document.addEventListener("unload", app.stopMonitor);
+    window.addEventListener("beforeunload", app.stopMonitor);
+    
+    app.stopMonitor = function(e){      
+        //Stop monitor if running
+        console.log("Stopping monitor...");
+        if(monitor){
+            monitor.stop();
+        }
+    };
+    
+    app.startMonitor = function(){
+        if (monitor)   
+            return;        
+        
+        try    
+        {
+            // This application is using EQATEC Analytics    
+            // See the documentation at http://www.telerik.com/analytics/resources/documentation    
+            // Create the monitor instance using the unique product key for Test App
+            
+            var settings = _eqatec.createSettings("567D284D76F445F29745431BB8024E11");
+            
+            settings.version = "1.0";
+            
+            monitor = _eqatec.createMonitor(settings);
+            console.log("Monitor created", monitor);
+            
+            
+            // Start the monitor when your application starts    
+            monitor.start();
             console.log("Monitor started");
-          });
-        },
-        function(msg) {
-          console.log("Error creating monitor: " + msg);
-        });
-    });
-  }
+            
+        }    
+        catch (e)    
+        {    
+            console.log("EQATEC Analytics exception: " + e.description);    
+        }    
+    };
+  
+    app.logViewStart = function(e){
+             //Log the view show to our app analytics
 
-  analytics.Stop = function()
-  {
-    var mon = window.plugins.EqatecAnalytics.Monitor;
-    mon.Stop();
-  }
+        var currentView = "Navigated to: " + e.view.id;
+        console.log("Log feature", currentView);
+        
+        monitor.trackFeature(currentView);
+        
+        //Start view timer
+        monitor.trackFeatureStart(currentView);
+    };
 
-  analytics.Monitor = function()
-  {
-    return window.plugins.EqatecAnalytics.Monitor;
-  }    
+    app.logViewEnd = function(e){
+        var currentView = e.view.id;
+        console.log("End timing for feature ", currentView);
+        
+        monitor.trackFeatureStop(currentView);
+    }
+    
 })(window);
