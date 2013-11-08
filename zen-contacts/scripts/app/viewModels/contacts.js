@@ -75,8 +75,10 @@ var contactsModel = (function () {
     // Datasource that syncs with phone
     var contactsDataSource = new kendo.data.DataSource({
         transport: {
-            read: phonebook.CRUD.read
-             // TODO: implement create / update / delete operations for this datasource
+            read: phonebook.CRUD.read,
+            update: phonebook.CRUD.update,
+            create: phonebook.CRUD.create,
+            destroy: phonebook.CRUD.destroy
         },
         schema: {
             model: contactModel
