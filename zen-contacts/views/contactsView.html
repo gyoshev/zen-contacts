@@ -6,37 +6,32 @@
             <a class="nav-button" data-align="right" data-role="button" data-icon="sync"></a>
         </div>
     </header>
-
+   
     <ul id="contacts-listview" data-role="listview" data-template="contactTemplate"
-        data-bind="source: contacts"></ul>
+        data-bind="source: contacts">
+    </ul>
+    
+    <a data-role="button" data-rel="modalview-syncProgress" href="#modalview-syncProgress" id="modalview-syncProgress-open-button">Open sync test</a>
+    <a data-role="button" data-rel="modalview-syncFailed" href="#modalview-syncFailed" id="modalview-syncFailed-open-button">Open failed test</a>
+    
     <p id="no-contacts-span" hidden="hidden" class="no-items-msg">
         <b>You appear to have no contacts.</b><br /><br />Tap on the plus icon to get all from the server.
-    </p>
+    </p> 
 </div>
 
-<div data-role="modalview" id="modalview-login" style="width: 95%; height: 18em;">
-    <div data-role="header">
-        <div data-role="navbar">
-            <span>Login</span>
-            <a data-click="closeModalViewLogin" data-role="button" data-align="right">Cancel</a>
-        </div>
-    </div>
-
-    <ul data-role="listview" data-style="inset">
-        <li><label for="username">Username:</label> <input type="text" id="username" /></li>
-        <li><label for="password">Password:</label> <input type="password" id="password" /></li>
-    </ul>
-    <a data-click="closeModalViewLogin" id="modalview-login-button" type="button" data-role="button">Login</a>
-    <a data-click="closeModalViewLogin" id="modalview-reg-button" type="button" data-role="button">Register</a>
+<div data-role="modalview" id="modalview-syncProgress" style="width: 95%; height: 18em;">
+        <label for="syncProgress">Sync in progress</label> <br>
+    <label for="syncProgressMsg">Fetching data from the server...</label>
+    <!--temprory button, should be removed!-->
+    <a data-click="closeModalViewProgress" id="modalview-syncProgress-button" type="button" data-role="button">Close</a>
 </div>
 
 <div data-role="modalview" id="modalview-syncFailed" style="width: 95%; height: 18em;">
-    <ul data-role="listview" data-style="inset">
-        <li><label for="syncFailed">Sync failed</label> 
-        <li><label for="syncFailedMsg">Password:</label>
-    </ul>
-    <a data-click="closeModalViewsyncFailed" id="modalview-syncFailed-cancel-button" type="button" data-role="button">Cancel</a>
-    <a data-click="closeModalViewLogin" id="modalview-syncFailed-try-button" type="button" data-role="button">Try again</a>
+    <label for="syncFailed">Sync failed</label><br>
+    <label for="syncFailedMsg">An error occurred during sunchronization. Your contacts are not synchronized with the server.</label>
+   
+    <a data-click="closeModalViewSyncFailed" id="modalview-syncFailed-cancel-button" type="button" data-role="button">Cancel</a>
+    <a data-click="closeModalViewTry" id="modalview-syncFailed-try-button" type="button" data-role="button">Try again</a>
 </div>
 
 <!-- Activities ListView Template -->
@@ -45,7 +40,13 @@
 </script>
 
 <script>
-    function closeModalViewLogin() {
-        $("#modalview-login").kendoMobileModalView("close");
+    function closeModalViewProgress() {
+        $("#modalview-syncProgress").kendoMobileModalView("close");
+    }
+    function closeModalViewSyncFailed() {
+        $("#modalview-syncFailed").kendoMobileModalView("close");
+    }
+    function closeModalViewTry() {
+        $("#modalview-syncFailed").kendoMobileModalView("close");
     }
 </script>
