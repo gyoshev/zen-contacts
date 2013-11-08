@@ -35,12 +35,13 @@ iPhone
 In order to install the app on an iPhone you need to install the free app Icenium Ion from the app store:
 https://itunes.apple.com/us/app/icenium-ion/id527547398
 
-Once you have it installed on your device you can scan this qrCode to have the Zen contacts application automatically deployed directly on your phone:![alt tag](http://i.imgur.com/laAZ1dS.jpg)
+Once you have it installed on your device you can scan this qrCode to have the Zen contacts application automatically deployed directly on your phone:
+![alt tag](http://i.imgur.com/FThCcZ7.jpg)
 
 
 Android
 -------
 On Android all you need to do is scan this qrCode and install the downloaded application:
-![alt tag](http://i.imgur.com/d85moFn.jpg)
+![alt tag](http://i.imgur.com/LxDVXHA.jpg)
 
 Alternatively you can directly download the necessary apk package from: http://livesync.ly/192rPIV
