@@ -2,8 +2,8 @@
     <header data-role="header">
         <div data-role="navbar">
             Phone contacts
-            <a class="nav-button" data-align="left" data-role="backbutton" data-click="app.viewModels.contacts.logout">Log out</a>
-            <a class="nav-button" data-align="right" data-role="button" data-icon="sync"></a>
+            <a class="nav-button" data-align="left" data-role="backbutton" data-click="app.viewModels.contacts.logout">Logout</a>
+            <a class="nav-button" data-align="right" data-role="button" data-click="app.viewModels.contacts.sync">Sync</a>
         </div>
     </header>
    
@@ -11,11 +11,8 @@
         data-bind="source: contacts">
     </ul>
     
-    <a data-role="button" data-rel="modalview-syncProgress" href="#modalview-syncProgress" id="modalview-syncProgress-open-button">Open sync test</a>
-    <a data-role="button" data-rel="modalview-syncFailed" href="#modalview-syncFailed" id="modalview-syncFailed-open-button">Open failed test</a>
-    
     <p id="no-contacts-span" hidden="hidden" class="no-items-msg">
-        <b>You appear to have no contacts.</b><br /><br />Tap on the plus icon to get all from the server.
+        <b>You appear to have no contacts.</b><br /><br />Tap the sync button above to get them from the server.
     </p> 
 </div>
 
@@ -36,7 +33,7 @@
 
 <!-- Activities ListView Template -->
 <script type="text/x-kendo-template" id="contactTemplate">
-        ${displayName}
+    ${displayName}
 </script>
 
 <script>
