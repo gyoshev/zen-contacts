@@ -1,41 +1,41 @@
 var contactsModel = (function () {
     var contactModel = {
-        id: 'Id',
+        id: 'contactId',
         fields: {
             displayName: {
-                field: 'DisplayName',
+                field: 'displayName',
                 defaultValue: ''
             },
-            createdBy: {
+            CreatedBy: {
                 field: 'CreatedBy',
                 defaultValue: ''
             },
-            createdAt: {
+            CreatedAt: {
                 field: 'CreatedAt',
                 defaultValue: new Date()
             },
-            modifiedAt: {
+            ModifiedAt: {
                 field: 'ModifiedAt',
                 defaultValue: new Date()
             },
             contactId: {
-                fields: 'ContactId',
+                fields: 'contactId',
                 defaultValue: ''
             },
             nickName: {
-                field: 'NickName',
+                field: 'nickName',
                 defaultValue: ''
             },
             phoneNumbers: {
-                field: 'PhoneNumbers',
+                field: 'phoneNumbers',
                 defaultValue: []
             },
             organizations: {
-                field: 'Organizations',
+                field: 'organizations',
                 defaultValue: []
             },
             name: {
-                field: 'Name',
+                field: 'name',
                 defaultValue: ''
             }
         },
