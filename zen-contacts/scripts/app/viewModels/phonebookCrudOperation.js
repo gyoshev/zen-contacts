@@ -37,11 +37,17 @@ phonebook.CRUD = {
         }
     },
     create: function(options) {
-        var createdContact = navigator.contacts.create(options.data.models);
+        var contacts = navigator.contacts;
         
-        createdContact.save();
-        
-        options.success(createdContact);
+        if (contacts && contacts.create) {
+            var createdContact = contacts.create(options.data.models);
+            
+            createdContact.save();
+            
+            options.success(createdContact);
+        } else {
+            options.success(options.data.models);
+        }
     },
     update: function(options) {
         var models = options.data.models;
