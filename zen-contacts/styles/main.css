@@ -159,3 +159,9 @@ textarea
 .social-login {
     margin-top: 1em;
 }
+
+#modalview-syncType .km-button {
+    display: block;
+    text-align: center;
+    margin: 1em 1em 0;
+}
