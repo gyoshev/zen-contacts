@@ -1,3 +1,13 @@
+body.ios-offset {
+    margin-top: 20px;
+}
+
+.ios-offset .km-view {
+    height: -webkit-calc(100% - 20px);
+    height: -moz-calc(100% - 20px);
+    height: calc(100% - 20px);
+}
+
 /* Buttons */
 .km-button.btn-big
 {
@@ -11,12 +21,12 @@
     min-width: 7em;
 }
 
-.btn-login::before, .btn-signup::before, .btn-login-fb::before
+.btn-login-fb::before
 {
     display: block;
     content: " ";
     width: 1em;
-    height: 1em;
+    height: 1.2em;
     position: absolute;
     top: .6em;
     
@@ -24,18 +34,14 @@
     background-repeat: no-repeat;
     background-size: 3em auto;
     background-color: transparent;
-    background-position: -100px -100px;
+    background-position: 0 -13.9em;
 }
-
-.btn-login::before { background-position: 0 -3em; }
-.btn-login-fb::before { background-position: 0 -13.9em; }
-.btn-signup::before { background-position: 0 -4.3em; }
 
 .km-button.btn-login-fb
 {
     background-color: #306DB0;
     color: #fff;
-    padding: .8em;
+    padding: .6em;
 }
 
 .btn-login-fb .km-text {
@@ -97,7 +103,7 @@ textarea
 
 .welcome-scrn .group-wrp
 {
-    margin: 1.5em 2em 0;
+    margin: 1em 2em 0;
     padding: 0;
     list-style-type: none;
     text-align: center;
@@ -136,8 +142,18 @@ textarea
     background-color: #fff;
 }
 
+.km-contacts:after,
+.km-contacts:before
+{
+    content: "\e219";
+}
+
 .km-sync:after,
 .km-sync:before
 {
     content: "\e0f6";
+}
+
+.social-login {
+    margin-top: 1em;
 }
