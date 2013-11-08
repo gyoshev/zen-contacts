@@ -3,7 +3,7 @@
         <div data-role="navbar">
             Phone contacts
             <a class="nav-button" data-align="left" data-role="backbutton" data-click="app.viewModels.contacts.logout">Logout</a>
-            <a class="nav-button" data-align="right" data-role="button" data-click="app.viewModels.contacts.sync">Sync</a>
+            <a class="nav-button" data-align="right" data-role="button" data-rel="modalview" href="#modalview-syncType">Sync</a>
         </div>
     </header>
    
@@ -14,6 +14,18 @@
     <p id="no-contacts-span" hidden="hidden" class="no-items-msg">
         <b>You appear to have no contacts.</b><br /><br />Tap the sync button above to get them from the server.
     </p> 
+</div>
+
+<div data-role="modalview" id="modalview-syncType" style="width: 95%; height: 18em;">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Choose how to sync</span>
+        </div>
+    </div>
+    
+    <a data-role="button" data-click="app.viewModels.contacts.forceDownload">Download all from server</a>
+    <a data-role="button" data-click="app.viewModels.contacts.forceUpload">Upload all to server</a>
+    <a data-role="button" data-click="app.viewModels.contacts.closeModal">Cancel</a>
 </div>
 
 <div data-role="modalview" id="modalview-syncProgress" style="width: 95%; height: 18em;">
