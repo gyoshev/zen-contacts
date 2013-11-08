@@ -18,11 +18,11 @@ In order to run the project locally you need to open Telerik Icenium, click on C
 
 Alternatively you can:  
 
-* Download an archived version of the project from github.  
-* Create a blank Icenium application.  
-* Go to Add menu.  
-* Select "From Archive".  
-* Navigate to the archive that you want to import.  
+1. Download an archived version of the project from github.  
+2. Create a blank Icenium application.  
+3. Go to Add menu.  
+4. Select "From Archive".  
+5. Navigate to the downloaded archive.  
 
 Of course you should also be able to run the application using PhoneGap.
 
@@ -48,3 +48,8 @@ On Android all you need to do is scan this qrCode and install the downloaded app
 ![alt tag](http://i.imgur.com/LxDVXHA.jpg)
 
 Alternatively you can directly download the necessary apk package from: http://livesync.ly/192rPIV
+
+
+Official website
+----------------
+More information regarding the application can be found on our official website: http://zencontacts.sandbox.sitefinity.com/
