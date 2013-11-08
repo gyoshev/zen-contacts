@@ -79,7 +79,7 @@ var contactsModel = (function () {
             read: function(options) {
                 // check if the device uuid is the same as the simulator's
                 // if so - use mock data
-                if (navigator.contacts.find && device.uuid != 'e0908060g38bde8e6740011221af335301010333') {
+                if (navigator.contacts && navigator.contacts.find && device.uuid != 'e0908060g38bde8e6740011221af335301010333') {
                     // find all contacts
                     var cfOptions = new ContactFindOptions();
                     cfOptions.filter = "";
