@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ZenContacts :: Web administration of contacts</title>
+
+    <link href="http://cdn.kendostatic.com/2013.2.918/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2013.2.918/styles/kendo.default.min.css" rel="stylesheet" />
+
+    <style>
+        body { font-family: Arial; }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="contacts-grid"></div>
+
+        <div id="login-window">
+            <form id="login-form">
+                <div class="form-row">
+                    <input type="text" id="loginUsername" placeholder="Username" required validationMessage="Username is required!" />
+                </div>
+                <div class="form-row">
+                    <input type="password" id="loginPassword" placeholder="Password" required validationMessage="Password is required!" />
+                </div>
+            </form>
+            <ul class="group-wrp">
+                <li>
+                    <a class="k-button k-state-default" data-bind="events: { click: login }">Login</a>
+                    <a href="views/signupView.html" class="btn-signup btn-big" data-icon="compose">Sign up</a>
+                </li>
+                <li class="social-login">
+                    <a data-role="button" class="k-button k-state-default social-facebook">Login with Facebook</a>
+                </li>
+                <li class="social-login">
+                    <a data-role="button" class="k-button k-state-default social-google">Login with Google</a>
+                </li>
+                <li class="social-login">
+                    <a data-role="button" class="k-button k-state-default social-liveid">Login with LiveID</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2013.2.918/js/kendo.web.min.js"></script>
+    <script>
+
+        $("#login-window").kendoWindow({
+            title: "ZenContacts login",
+            actions: [],
+            width: 600,
+            height: 400,
+            modal: true,
+            draggable: false,
+            resizable: false
+        }).data("kendoWindow").center();
+    </script>
+</body>
+</html>
